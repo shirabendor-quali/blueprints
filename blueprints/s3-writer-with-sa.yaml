@@ -5,6 +5,7 @@ inputs:
   bucket_name:
     type: string
     display-style: normal
+    default: shiras-bucket
   content:
     type: string
     default: this is a default content
