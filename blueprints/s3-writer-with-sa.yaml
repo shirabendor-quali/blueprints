@@ -12,7 +12,7 @@ inputs:
     display-style: normal
   host:
     type: string
-    default: k8s
+    default: shira-eks
     display-style: normal
 
 grains:
