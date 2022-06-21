@@ -20,7 +20,7 @@ grains:
     kind: terraform
     spec:
       source:
-        path: github.com/shirabendor-quali//terraform/s3-write
+        path: github.com/shirabendor-quali/terraform/s3-write
       host:
         name: '{{.inputs.host}}'
       inputs:
