@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:     
+        
+  test-provision-s3:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Start Torque Sandbox
+      id: start-sandbox
+      uses: QualiTorque/torque-start-sb-action@v0.1.2
+      with:
+        space: Shira
+        blueprint_name: cfn-demo
+        torque_token: ${{ secrets.TORQUE_TOKEN }}
+        duration: 45
+        timeout: 30
+        torque_url: "https://portal.qtorque.io"
+    
+    - name: Testing
+      id: test-app
+      run: |
+        echo "Running tests against sandbox with id: ${{ steps.start-sandbox.outputs.sandbox_id }}"
+        arn <<< "$(jq '. | .["cfn-demo"][]' <<< ' ${{ steps.start-sandbox.outputs.arn }}')"
+        echo "Do something with this ${arn}."
+        
+    - name: Stop sandbox
+      uses: QualiTorque/torque-end-sb-action@v0.1.2
+      with:
+        space: shira
+        sandbox_id: ${{ steps.start-sandbox.outputs.sandbox_id }}
+        torque_token: ${{ secrets.TORQUE_TOKEN }} 
+        
