@@ -10,6 +10,10 @@ inputs:
     type: string
     default: this is a default content
     display-style: normal
+  host:
+    type: string
+    default: k8s
+    display-style: normal
 
 grains:
   s3-write:
@@ -18,8 +22,7 @@ grains:
       source:
         path: github.com/shirabendor-quali/terraform/s3-write
       host:
-        name: shira-eks
-        service-account: tf-qualidev2-sa
+        name: '{{.inputs.host}}'
       inputs:
         - BUCKET_NAME: '{{.inputs.bucket_name}}'
         - SANDBOX_ID: '{{sandboxId}}'
