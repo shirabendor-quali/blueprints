@@ -5,7 +5,7 @@ on:
 
 jobs:     
         
-  test-provision-s3:
+  test-cfn-demo:
     runs-on: ubuntu-latest
     steps:
     - name: Start Torque Sandbox
