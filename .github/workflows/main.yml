@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Start Torque Sandbox
       id: start-sandbox
-      uses: QualiTorque/torque-start-sb-action@v0.1.2
+      uses: QualiTorque/torque-start-sb-action@v0.1.1
       with:
         space: Shira
         blueprint_name: cfn-demo
@@ -27,7 +27,7 @@ jobs:
         echo "Do something with this ${arn}."
         
     - name: Stop sandbox
-      uses: QualiTorque/torque-end-sb-action@v0.1.2
+      uses: QualiTorque/torque-end-sb-action@v0.1.0
       with:
         space: shira
         sandbox_id: ${{ steps.start-sandbox.outputs.sandbox_id }}
