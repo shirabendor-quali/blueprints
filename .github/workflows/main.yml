@@ -17,13 +17,13 @@ jobs:
         torque_token: ${{ secrets.TORQUE_TOKEN }}
         duration: 45
         timeout: 30
-        torque_url: "https://portal.qtorque.io"
     
     - name: Testing
       id: test-app
       run: |
         echo "Running tests against sandbox with id: ${{ steps.start-sandbox.outputs.sandbox_id }}"
         echo "Do something with sandbox details json: ${{ steps.start-sandbox.outputs.sandbox_details }}"
+        sleep 120
         
     - name: Stop sandbox
       uses: QualiTorque/torque-end-sb-action@v0.1.0
