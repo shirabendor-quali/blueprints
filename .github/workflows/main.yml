@@ -23,8 +23,7 @@ jobs:
       id: test-app
       run: |
         echo "Running tests against sandbox with id: ${{ steps.start-sandbox.outputs.sandbox_id }}"
-        arn <<< "$(jq '. | .["cfn-demo"][]' <<< ' ${{ steps.start-sandbox.outputs.arn }}')"
-        echo "Do something with this ${arn}."
+        echo "Do something with sandbox details json: ${{ steps.start-sandbox.outputs.sandbox_details }}"
         
     - name: Stop sandbox
       uses: QualiTorque/torque-end-sb-action@v0.1.0
