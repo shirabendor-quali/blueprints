@@ -16,7 +16,7 @@ grains:
       source:
         path: https://github.com/QualiNext/torque-demo.git//terraform/s3
       host:
-        name: demo-docker
+        name: docker-demo
       inputs:
         - region: us-west-1
         - acl: private
