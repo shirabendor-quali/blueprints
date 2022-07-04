@@ -14,7 +14,8 @@ grains:
     kind: terraform
     spec: 
       source:
-        path: https://github.com/QualiNext/torque-demo/tree/master/terraform/s3
+        store: torque-demo
+        path: terraform/s3
       host:
         name: docker-demo
       inputs:
@@ -28,7 +29,8 @@ grains:
     kind: terraform
     spec: 
       source:
-        path: https://github.com/QualiNext/torque-demo/tree/master/terraform/s3
+        store: torque-demo
+        path: terraform/s3
       host:
         name: docker-demo
       inputs:
