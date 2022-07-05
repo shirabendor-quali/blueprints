@@ -14,7 +14,7 @@ grains:
     kind: terraform
     spec: 
       source:
-        store: torque-demo
+        store: terraform2
         path: terraform/s3
       host:
         name: docker-demo
@@ -29,7 +29,7 @@ grains:
     kind: terraform
     spec: 
       source:
-        store: torque-demo
+        store: terraform2
         path: terraform/s3
       host:
         name: docker-demo
