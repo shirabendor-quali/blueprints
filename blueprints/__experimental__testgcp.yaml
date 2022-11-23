@@ -34,7 +34,7 @@ grains:
       # env-vars:
       # - VAR_NAME: var value
       env-vars: 
-        - GOOGLE_APPLICATION_CREDENTIALS: {{ .inputs.authnJson }}
+        - GOOGLE_APPLICATION_CREDENTIALS: '{{ .inputs.authnJson }}'
       outputs:
       - hello
     # The terraform version that will be used to deploy the module
