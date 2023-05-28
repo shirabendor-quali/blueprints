@@ -39,8 +39,8 @@ grains:
     kind: cloudformation
     spec: 
       source:
-        store: assets
-        path: assets/CloudFormation/AWSS3Bucket.yaml
+        store: terraform
+        path: AWSS3Bucket.yaml
       region: '{{ .inputs.["AWS Region"] }}'
       authentication:
         - AWS TorqueDemo Production
@@ -55,7 +55,7 @@ grains:
     depends-on: CFN-S3-Bucket
     spec:
       source:
-        store: assets
+        store: terraform
         path: assets/terraform/aws/s3-deploy-webapp
       agent:
         name: demo-prod
