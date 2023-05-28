@@ -43,7 +43,7 @@ grains:
         path: AWSS3Bucket.yaml
       region: '{{ .inputs.["AWS Region"] }}'
       authentication:
-        - AWS TorqueDemo Production
+        - aws-dev-creds
       inputs:
         - AccessControl: '{{ .inputs.["Access Control"] }}'
         - BucketName: '{{ .inputs.["Bucket Name"] }}-{{ sandboxid | downcase }}'
