@@ -56,10 +56,10 @@ grains:
     spec:
       source:
         store: terraform
-        path: assets/terraform/aws/s3-deploy-webapp
+        path: s3-deploy-webapp
       agent:
-        name: demo-prod
-        service-account: app-sa
+        name: shira-eks-new
+        service-account: shira-sa
       inputs:
       - bucket_name: '{{ .inputs.["Bucket Name"] }}-{{ sandboxid | downcase }}'
       - region: '{{ .inputs.["AWS Region"] }}'
