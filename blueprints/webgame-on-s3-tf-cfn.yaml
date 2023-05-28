@@ -59,7 +59,6 @@ grains:
         path: s3-deploy-webapp
       agent:
         name: shira-eks-new
-        service-account: shira-sa
       inputs:
       - bucket_name: '{{ .inputs.["Bucket Name"] }}-{{ sandboxid | downcase }}'
       - region: '{{ .inputs.["AWS Region"] }}'
