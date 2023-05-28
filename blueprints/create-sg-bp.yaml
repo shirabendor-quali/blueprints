@@ -15,7 +15,7 @@ grains:
     spec:
       source:
         #path: https://tomerv-public.s3.amazonaws.com/create-sg.json
-        store: terraform
+        store: shira-terraform
         path: cfn2/create-sg.json
       region: eu-west-1
       authentication:
