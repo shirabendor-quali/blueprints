@@ -1,19 +1,14 @@
-spec_version: 2-preview
-
- 
+spec_version: 2
 
 inputs:
-   sg_name:
-       type: string
-       display-style: normal
-       default: "test-sg"
-   cred_name:
-        type: string
-        display-style: normal
-        default: "aws-dev-creds"
-
- 
-
+  sg_name:
+    type: string
+    display-style: normal
+    default: "test-sg"
+  cred_name:
+    type: string
+    display-style: normal
+    default: "aws-dev-creds"
 grains:
   sg-grain:
     kind: cloudformation
