@@ -40,7 +40,7 @@ grains:
     spec: 
       source:
         store: terraform
-        path: AWSS3Bucket.yaml
+        path: cfn/AWSS3Bucket.yaml
       region: '{{ .inputs.["AWS Region"] }}'
       authentication:
         - aws-dev-creds
