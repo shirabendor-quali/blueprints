@@ -39,7 +39,7 @@ grains:
     kind: cloudformation
     spec: 
       source:
-        store: terraform
+        store: shira-terraform
         path: cfn/AWSS3Bucket.yaml
       region: '{{ .inputs.["AWS Region"] }}'
       authentication:
@@ -55,7 +55,7 @@ grains:
     depends-on: CFN-S3-Bucket
     spec:
       source:
-        store: terraform
+        store: shira-terraform
         path: s3-deploy-webapp
       agent:
         name: shira-eks-new
