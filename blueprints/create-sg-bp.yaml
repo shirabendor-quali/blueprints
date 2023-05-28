@@ -1,24 +1,24 @@
 spec_version: 2
-
 inputs:
-  sg_name:
-    type: string
-    display-style: normal
-    default: "test-sg"
-  cred_name:
-    type: string
-    display-style: normal
-    default: "aws-dev-creds"
+   sg_name:
+       type: string
+       display-style: normal
+       default: "test-sg"
+   cred_name:
+        type: string
+        display-style: normal
+        default: "test"
+
 grains:
-  sg-grain:
-    kind: cloudformation
-    spec:
-      source:
-        #path: https://tomerv-public.s3.amazonaws.com/create-sg.json
-        store: terraform
-        path: cfn2/create-sg/create-sg.json
-      region: eu-west-1
-      authentication:
-        - '{{ .inputs.cred_name }}'
-      inputs:
-        - sgName: '{{ .inputs.sg_name }}'
+  sg-grain:
+    kind: cloudformation
+    spec:
+      source:
+        #path: https://tomerv-public.s3.amazonaws.com/create-sg.json
+        store: tomer_playground
+        path: cfn/create-sg/create-sg.json
+      region: eu-west-1
+      authentication:
+        - '{{ .inputs.cred_name }}'
+      inputs:
+        - sgName: '{{ .inputs.sg_name }}'
