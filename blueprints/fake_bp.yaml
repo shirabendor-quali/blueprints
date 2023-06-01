@@ -1,0 +1,33 @@
+spec_version: 2
+description: Web-based game deployed as a static website on Azure Storage
+inputs:
+  Storage Account Name:
+    type: string
+    default: mystgeacct
+    description: name of storage account to create - must be between 0-12 characters of only a-z/0-9, leave blank to use sandbox-id
+
+outputs:
+  Webgame Link:
+    value: '{{ .grains.Azure-Storage-Webapp.outputs.website_link }}'
+    quick: true
+  Documentation Page:
+    value: "https://quali.atlassian.net/wiki/spaces/QS/pages/2691399681/Webgame+on+Cloud+Storage+Service"
+    quick: true
+
+grains:
+  Azure-Storage-Webapp:
+    kind: terraform
+    spec:
+      source:
+        store: assets
+        path: assets/terraform/azure/storage-webapp
+      agent:
+        name: aks-prod
+      inputs:
+      - sandbox_id: '{{ sandboxid | downcase }}'
+      - storage_account_name: '{{ .inputs.["Storage Account Name"]}}{{ sandboxid | downcase }}'
+      outputs:
+      - website_link
+      env-vars: []
+    # The terraform version that will be used to deploy the module
+    tf-version: 1.2.5
