@@ -1,0 +1,78 @@
+spec_version: 2
+description: Auto generated blueprint for terraform module s3-create
+# blueprint inputs can be provided by the user, API or CI plugin when creating an environment from this blueprint.
+inputs:
+  encryption_key_arn:
+    type: string
+    default: ''
+  name:
+    type: string
+    default: 'null'
+    description: Region where to create resources
+  region:
+    type: string
+    default: eu-west-1
+    description: Region where to create resources
+  agent:
+    type: agent
+# blueprint outputs define which data that was generated during environment provisioning will be returned to the user, API or CI.
+outputs:
+  name:
+    value: '{{ .grains.s3-create.outputs.name }}'
+    quick: true
+  s3_bucket_id:
+    value: '{{ .grains.s3-create.outputs.s3_bucket_id }}'
+    quick: true
+grains:
+  s3-create:
+    kind: terraform
+    spec:
+      source:
+        store: terraform
+        path: s3-create
+      agent:
+      # The Torque agent that will be used to provision the environment.
+        name: '{{ .inputs.agent }}'
+        # A service account annotated with a role ARN with permissions to run the asset
+        # service-account: <service-account-name>
+      inputs:
+      - encryption_key_arn: '{{ .inputs.encryption_key_arn }}'
+      - name: '{{ .inputs.name }}'
+      - region: '{{ .inputs.region }}'
+      # The environment variables declared in this section will be available during the grain deployment as well as the grain destroy phase
+      # env-vars:
+      # - VAR_NAME: var value
+      env-vars: []
+      outputs:
+      - name
+      - s3_bucket_id
+      
+    # The terraform version that will be used to deploy the module
+    tf-version: 1.4.6
+
+  s3-create-2:
+    kind: terraform
+    depends-on: s3-create
+    spec:
+      source:
+        store: terraform
+        path: s3-create
+      agent:
+      # The Torque agent that will be used to provision the environment.
+        name: '{{ .inputs.agent }}'
+        # A service account annotated with a role ARN with permissions to run the asset
+        # service-account: <service-account-name>
+      inputs:
+      - encryption_key_arn: '{{ .inputs.encryption_key_arn }}'
+      - name: null
+      - region: '{{ .inputs.region }}'
+      # The environment variables declared in this section will be available during the grain deployment as well as the grain destroy phase
+      # env-vars:
+      # - VAR_NAME: var value
+      env-vars: []
+      outputs:
+      - name
+      - s3_bucket_id
+      
+    # The terraform version that will be used to deploy the module
+    tf-version: 1.4.6
