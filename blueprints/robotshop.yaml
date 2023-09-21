@@ -35,7 +35,7 @@ grains:
     kind: terraform
     spec:
       source:
-        path: github.com/johnathanvidu/prod-tests.git//terraform/rds
+        path: https://github.com/johnathanvidu/prod-tests.git//terraform/rds
       agent:
         name: '{{.inputs.host}}'
       inputs:
