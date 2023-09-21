@@ -3,9 +3,9 @@ description: Robotshot microservices application deployed on K8S with Helm and R
 
 inputs:
   host:
-    type: string
+    type: agent
     display-style: normal
-    default: "shira-eks"
+    default: "shira-eks-new"
     description: "execution host"
   version:
     type: string
