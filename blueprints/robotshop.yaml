@@ -5,7 +5,7 @@ inputs:
   host:
     type: agent
     display-style: normal
-    default: "shira-eks-new"
+    default: "demo-prod"
     description: "execution host"
   version:
     type: string
