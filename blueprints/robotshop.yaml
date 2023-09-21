@@ -73,7 +73,7 @@ grains:
     spec:
       source:
         path: https://github.com/QualiSystemsLab/Torque-Project-Pivot.git//robotShop
-      host:
+      agent:
         name: '{{.inputs.host}}'
       inputs:
         - hostname: 'robotshop-{{ sandboxid | downcase }}'
