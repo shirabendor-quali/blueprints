@@ -64,7 +64,7 @@ grains:
         # service-account: <service-account-name>
       inputs:
       - encryption_key_arn: '{{ .inputs.encryption_key_arn }}'
-      - name: {{.grains.s3-create.outputs.name | append: "aaa"}}
+      - name: '{{ .grains.s3-create.outputs.name | append: "aaa" }}'
       - region: '{{ .inputs.region }}'
       # The environment variables declared in this section will be available during the grain deployment as well as the grain destroy phase
       # env-vars:
