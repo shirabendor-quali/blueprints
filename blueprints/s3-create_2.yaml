@@ -79,11 +79,7 @@ grains:
       outputs:
       - name
       - s3_bucket_id
-      scripts:
-        post-tf-plan:
-          source:
-            store: blueprints
-            path: blueprints/scripts/no-changed-resources.sh    
+
       
     # The terraform version that will be used to deploy the module
     tf-version: 1.4.6
