@@ -83,7 +83,7 @@ grains:
         post-tf-plan:
           source:
             store: blueprints
-            path: scripts/no-changed-resources.sh      
+            path: blueprints/scripts/no-changed-resources.sh    
       
     # The terraform version that will be used to deploy the module
     tf-version: 1.4.6
