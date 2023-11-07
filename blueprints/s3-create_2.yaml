@@ -28,7 +28,7 @@ grains:
     kind: terraform
     spec:
       source:
-        store: terraform
+        store: shira-terraform
         path: s3-create
       agent:
       # The Torque agent that will be used to provision the environment.
@@ -60,7 +60,7 @@ grains:
     depends-on: s3-create
     spec:
       source:
-        store: terraform
+        store: shira-terraform
         path: s3-create
       agent:
       # The Torque agent that will be used to provision the environment.
