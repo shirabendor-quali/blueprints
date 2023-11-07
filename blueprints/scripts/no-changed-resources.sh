@@ -1,7 +1,10 @@
 #!/bin/bash
 
 echo "$TORQUE_TF_PLAN_PATH"
-if grep -q '0 to change' $(<"$TORQUE_TF_PLAN_PATH") ; then
+value=`cat "$TORQUE_TF_PLAN_PATH"`
+echo $value
+
+if grep -q "0 to change" $value ; then
   echo "Success: No changed resources."
   exit 0
 else
