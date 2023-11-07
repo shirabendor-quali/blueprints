@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "$TORQUE_TF_PLAN_PATH"
-value=`cat "$TORQUE_TF_PLAN_PATH"`
+value=`cat "$TORQUE_TF_PLAN_PATH" | tr -d '\0'`
 echo $value
 
 if grep -q "0 to change" $value ; then
