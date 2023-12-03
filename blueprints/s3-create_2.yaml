@@ -5,6 +5,7 @@ inputs:
   encryption_key_arn:
     type: string
     default: ''
+    sensitive: true
   name:
     type: string
     default: 'null'
