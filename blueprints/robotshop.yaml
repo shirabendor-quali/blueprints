@@ -38,7 +38,7 @@ grains:
     spec:
       source:
         store: assets
-        path: terraform/aws/rds
+        path: terraform/AWS/rds
       agent:
         name: shira-eks-new
         service-account: vido-sa
@@ -61,7 +61,7 @@ grains:
     spec: 
       source:
         store: assets
-        path: terraform/aws/s3
+        path: terraform/AWS/s3
       agent:
         name: shira-eks-new
         service-account: vido-sa
