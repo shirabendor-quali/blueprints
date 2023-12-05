@@ -1,49 +1,53 @@
 spec_version: 2
-description: Robotshot microservices application deployed on K8S with Helm and RDS deployed with TF
+description: Robot-Shop sample eCommerce MSVC app deployed on a K8S Cluster via Helm and RDS/S3 via TF
 
 inputs:
-  host:
-    type: agent
-    display-style: normal
-    default: "demo-prod"
-    description: "execution host"
-  version:
+  Application Version:
     type: string
-    display-style: normal
     default: "0.4.3"
     description: "Version of the robotShop micorservices application"
-  db_size:
+  DB Size:
     type: string
-    display-style: normal
     default: "small"
     description: "The instance type of the RDS instance. Small, medium, or large."
-  db_engine_version:
+    allowed-values: ["small", "medium", "large"]
+  DB Engine Version:
     type: string
-    display-style: normal
-    default: "8.0.26"
-    description: "Version of RDS Engine. Default is 5.7"
+    default: "8.0.32"
+    description: "Version of RDS MySQL DB Engine. Default is 8.0.32"
 
+
+# values that starts with '{' for liquid template must be encosed with quotes so YAML won't consider them as dict
 outputs:
-  WebsiteUrl:
-    value: 'robotshop-{{ sandboxid | downcase }}.testquali.click:8080'
-  DB_Hostname:
-    value: '{{ .grains.mySqlDB.outputs.hostname }}'
+  Robot Shop Site:
+    value: 'http://{{.grains.Robot_Shop_MicroServices.scripts.post-helm-install.outputs.frontend}}:8080'
+    quick: true
+  Robot Shop Site (Friendly DNS): 
+    value: 'robotshop-{{ sandboxid | downcase }}.torque-demo.click:8080'
+    quick: true
+  RDS MySQL DB Hostname:
+    value: '{{ .grains.MySQL_RDS_DB.outputs.hostname }}'
+    quick: false
+  Documentation Page:
+    value: "https://quali.atlassian.net/wiki/spaces/QS/pages/2710142977/Robot+Shop+Stan+s+Robot+Shop"
+    quick: true
 
 grains:
-
-  mySqlDB:
+  MySQL_RDS_DB:
     kind: terraform
     spec:
       source:
-        path: https://github.com/johnathanvidu/prod-tests.git//terraform/rds
+        store: assets
+        path: assets/terraform/aws/rds
       agent:
-        name: '{{.inputs.host}}'
+        name: demo-prod
+        service-account: app-sa
       inputs:
         - sandbox_id: '{{ sandboxid | downcase }}'
-        - size: '{{ .inputs.db_size }}' 
+        - size: '{{ .inputs.["DB Size"] }}' 
         - allocated_storage: 20
         - db_name: demo_db
-        - engine_version: '{{ .inputs.db_engine_version }}'
+        - engine_version: '{{ .inputs.["DB Engine Version"] }}'
         - engine: MySQL
         - username: adminuser
         - vpc_id: vpc-02e3bca90b081cd0f
@@ -52,32 +56,46 @@ grains:
         - hostname
         - connection_string
 
-  s3Bucket:
+  S3_Bucket:
     kind: terraform
     spec: 
       source:
-        path: github.com/johnathanvidu/prod-tests.git//terraform/s3
+        store: assets
+        path: assets/terraform/aws/s3
       agent:
-        name: '{{.inputs.host}}'
+        name: demo-prod
+        service-account: app-sa
       inputs:
         - region: eu-west-1
         - acl: public-read
         - name: 'robotshop-s3-{{ sandboxid | downcase }}'
       outputs:
         - s3_bucket_arn
-  
+    tf-version: 1.4.5
 
-  robotShopMicroservices:
+  Robot_Shop_MicroServices:
     kind: helm
-    depends-on: mySqlDB, s3Bucket
+    depends-on: MySQL_RDS_DB, S3_Bucket
     spec:
       source:
-        path: https://github.com/QualiSystemsLab/Torque-Project-Pivot.git//robotShop
+        store: assets
+        path: assets/helm/robotShop
       agent:
-        name: '{{.inputs.host}}'
+        name: demo-prod
+        service-account: default
+      scripts:
+        post-helm-install:
+          source:
+            store: assets
+            path:  assets/scripts/get-robot-web-address.sh
+          arguments: '{{ envid | downcase }}'
+          outputs:
+            - frontend
       inputs:
         - hostname: 'robotshop-{{ sandboxid | downcase }}'
-        - version: '{{ .inputs.version }}'
-        - connectionString: '{{ .grains.mySqlDB.outputs.connection_string }}'
-        - objectStore.s3BucketArn: '{{ .grains.s3Bucket.outputs.s3_bucket_arn }}'
+        - domain: 'torque-demo.click'
+        - version: '{{ .inputs.["Application Version"] }}'
+        - connectionString: '{{ .grains.MySQL_RDS_DB.outputs.connection_string }}'
+        - objectStore.S3_BucketArn: '{{ .grains.S3_Bucket.outputs.s3_bucket_arn }}'
         - redis.storageClassName: gp2
+        - sandboxID: '{{ sandboxid | downcase }}'
