@@ -38,7 +38,7 @@ grains:
     spec:
       source:
         store: assets
-        path: assets/terraform/aws/rds
+        path: terraform/aws/rds
       agent:
         name: shira-eks-new
         service-account: vido-sa
@@ -61,7 +61,7 @@ grains:
     spec: 
       source:
         store: assets
-        path: assets/terraform/aws/s3
+        path: terraform/aws/s3
       agent:
         name: shira-eks-new
         service-account: vido-sa
@@ -79,7 +79,7 @@ grains:
     spec:
       source:
         store: assets
-        path: assets/helm/robotShop
+        path: helm/robotShop
       agent:
         name: shira-eks-new
         service-account: vido-sa
@@ -87,7 +87,7 @@ grains:
         post-helm-install:
           source:
             store: assets
-            path:  assets/scripts/get-robot-web-address.sh
+            path:  scripts/get-robot-web-address.sh
           arguments: '{{ envid | downcase }}'
           outputs:
             - frontend
