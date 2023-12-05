@@ -40,8 +40,8 @@ grains:
         store: assets
         path: assets/terraform/aws/rds
       agent:
-        name: demo-prod
-        service-account: app-sa
+        name: shira-eks-new
+        service-account: vido-sa
       inputs:
         - sandbox_id: '{{ sandboxid | downcase }}'
         - size: '{{ .inputs.["DB Size"] }}' 
@@ -63,8 +63,8 @@ grains:
         store: assets
         path: assets/terraform/aws/s3
       agent:
-        name: demo-prod
-        service-account: app-sa
+        name: shira-eks-new
+        service-account: vido-sa
       inputs:
         - region: eu-west-1
         - acl: public-read
@@ -81,8 +81,8 @@ grains:
         store: assets
         path: assets/helm/robotShop
       agent:
-        name: demo-prod
-        service-account: default
+        name: shira-eks-new
+        service-account: vido-sa
       scripts:
         post-helm-install:
           source:
