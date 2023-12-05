@@ -37,8 +37,8 @@ grains:
     kind: terraform
     spec:
       source:
-        store: assets
-        path: terraform/AWS/rds
+        store: prod-assets
+        path: assets/terraform/AWS/rds
       agent:
         name: shira-eks-new
         service-account: vido-sa
@@ -60,8 +60,8 @@ grains:
     kind: terraform
     spec: 
       source:
-        store: assets
-        path: terraform/AWS/s3
+        store: prod-assets
+        path: assets/terraform/AWS/s3
       agent:
         name: shira-eks-new
         service-account: vido-sa
@@ -78,8 +78,8 @@ grains:
     depends-on: MySQL_RDS_DB, S3_Bucket
     spec:
       source:
-        store: assets
-        path: helm/robotShop
+        store: prod-assets
+        path: assets/helm/robotShop
       agent:
         name: shira-eks-new
         service-account: vido-sa
