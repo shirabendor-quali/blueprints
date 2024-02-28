@@ -1,0 +1,7 @@
+kind: layout
+description: "layout for demo purposes"
+
+table:
+  hide:
+    resource-types:
+      - "azurerm_virtual_machine"
