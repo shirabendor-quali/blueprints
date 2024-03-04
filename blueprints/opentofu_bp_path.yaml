@@ -1,0 +1,42 @@
+spec_version: 2
+description: manual blueprint for terraform module hello_world
+# blueprint inputs can be provided by the user, API or CI plugin when creating an environment from this blueprint.
+inputs:
+  my_name:
+    type: string
+    default: Test Doe
+  message:
+    type: string
+    default: Test Doe message
+  host_name:
+    type: agent
+    display-style: normal
+    description: "execution host name"
+# blueprint outputs define which data that was generated during environment provisioning will be returned to the user, API or CI.
+outputs:
+  message:
+    value: '{{ .grains.hello_world.outputs.message }}'
+  url:
+    value: '{{ .grains.hello_world.outputs.url }}'
+grains:
+  hello_world:
+    kind: opentofu
+    spec:
+      source:
+        store: assets
+        path: terraform/hello_world
+      binary: https://github.com/opentofu/opentofu/releases/download/v1.6.2/tofu_1.6.2_linux_amd64.zip
+      agent:        
+        name: '{{.inputs.host_name}}'
+        # A service account annotated with a role ARN with permissions to run the asset
+        # service-account: <service-account-name>
+      inputs:
+      - my_name: '{{ .inputs.my_name }}'
+      - message: '{{ .inputs.message }}'
+      # The environment variables declared in this section will be available during the grain deployment as well as the grain destroy phase
+      # env-vars:
+      # - VAR_NAME: var value
+      env-vars: []
+      outputs:
+      - message
+      - url
